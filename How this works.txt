@@ -1,0 +1,47 @@
+Python script to search and delete a unique folder that is available in multiple paths
+***************************************************************************************
+
+Assume a folder named "cache" is found inside multiple locations
+"C:\Training\Users\User1\App\Cache"
+"C:\Training\Users\User2\App\App1\Cache"
+"C:\Training\Users\User3\Cache"
+"C:\Training\Users\User3\App\Cache"
+"C:\Training\Users\User4\App\Different\Cache"
+
+So it's a hectic process to search and delete that particular folder "cache" in multiple path locations.
+
+So I have developed a python script, to search and delete that unique folder named "cache" in multiple paths.
+
+In the script, I have taken 3 user inputs,
+1. A "Common root path" to reach different multiple sub paths
+   For example, in the above given paths, upto this path "C:\Training\Users" everything is same. So the
+   user need to pass this as a parameter without any quotes. 
+2. The unique folder name that needs to be deleted completely.
+   For example, in the above scenario, its "cache" folder
+3. A place to store log file. 
+   For example, D:\scripts\log.txt
+
+Just dive into the script now,
+
+In order to remove certain folders, the user must have some privileges rights to it. Therefore before start executing the script, the must
+needs to run the script as different user.In order to do it, right click the cmd with shift key and click on "Run as different user". In order
+to remember this to user, I have put a message as,
+reply = input ("\nDid you use your Privilege Account to run this script\n  If yes press 'y' if not press 'n'\n : ")
+
+I have used os.walk(), to traverse across multiple paths and used fnmatch.filter(), to filter the paths that contain only unique 
+folder name that needs to be deleted. Then I used (os.path.join(root,name) to create the absolute path of the folders to be deleted.
+I am putting every results into the list variable called mylist[] .
+for root,dirs,files in os.walk(Firstpath):
+		for name in fnmatch.filter(dirs,Search):
+			mylist.append((os.path.join(root,name)))
+
+Then I looped into "mylist" list and removed the required folder "cache" using shutil.rmtree().
+for delete in mylist:
+	shutil.rmtree(delete)
+	timestamp ("Removed "+delete)
+
+Please goto GitHub Repository to refer the script (pyrecurse.py)
+
+
+
+
